@@ -18,6 +18,8 @@ set(PROJECT_SOURCES
     src/mainwindow.cpp
     src/mainwindow.ui
     inc/mainwindow.h    #Obligatoire a cause du Q_OBJECT
+    src/ingredient.cpp
+    src/recipe.cpp
 )
 
 
