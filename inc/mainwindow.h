@@ -1,23 +1,34 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "recipe.h"
+
 #include <QMainWindow>
+#include <QListWidget>
+#include <QTextEdit>
+#include <QHBoxLayout>
+#include <QMap>
+#include <QStringList>
 
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
-QT_END_NAMESPACE
-
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    void populateRecipes(std::vector<Recipe> recipes);
+
+private slots:
+    void onRecipeSelected();
 
 private:
-    Ui::MainWindow *ui;
+   
+    QListWidget *recipeList;
+    QListWidget *ingredientList;
+    QTextEdit *stepText;
+
+    QMap<QString, QStringList> ingredientsMap;
+    QMap<QString, QString> stepsMap;
+
 };
+
 #endif // MAINWINDOW_H

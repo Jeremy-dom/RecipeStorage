@@ -9,6 +9,27 @@ std::string Recipe::getName() const {
     return name;
 }
 
+Ingredient Recipe::getIngredient(int index)
+{
+    return ingredients[index];
+}
+
+int Recipe::getQuantity(int index)
+{
+    return quantities[index];
+}
+
+std::string Recipe::getAllStep()
+{
+    std::string allStep;
+    for(size_t i = 0; i < steps.size(); i++)
+    {
+        allStep += steps[i];
+        allStep += "\n";
+    }
+    return allStep;
+}
+
 // Setters
 void Recipe::setName(const std::string& name) {
     this->name = name;

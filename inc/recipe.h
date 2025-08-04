@@ -19,6 +19,9 @@ class Recipe{
 
         //Getter
         std::string getName() const;
+        Ingredient getIngredient(int index);
+        int getQuantity(int index);
+        std::string getAllStep();
 
         //Setter
         void setName(const std::string& name);
