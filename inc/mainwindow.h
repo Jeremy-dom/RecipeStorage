@@ -9,6 +9,7 @@
 #include <QHBoxLayout>
 #include <QMap>
 #include <QStringList>
+#include <QLabel>
 
 class MainWindow : public QMainWindow {
     Q_OBJECT

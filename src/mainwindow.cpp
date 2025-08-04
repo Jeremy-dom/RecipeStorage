@@ -7,18 +7,40 @@ MainWindow::MainWindow(QWidget *parent)
       stepText(new QTextEdit(this))
 {
     QWidget *central = new QWidget(this);
-    QHBoxLayout *layout = new QHBoxLayout(central);
 
     recipeList->setMinimumWidth(150);
-    ingredientList->setMinimumWidth(200);
-    stepText->setReadOnly(true);
+    QVBoxLayout *leftColumn = new QVBoxLayout();
+    QLabel *labelRecipes = new QLabel("Recettes");
+    labelRecipes->setAlignment(Qt::AlignCenter);
+    labelRecipes->setStyleSheet("font-weight: bold; font-size: 12px;");
+    leftColumn->addWidget(labelRecipes);
+    leftColumn->addWidget(recipeList);
 
-    layout->addWidget(recipeList);
-    layout->addWidget(ingredientList);
-    layout->addWidget(stepText);
+    ingredientList->setMinimumWidth(200);
+    QVBoxLayout *middleColumn = new QVBoxLayout();
+    QLabel *labelIngredients = new QLabel("Ingrédients");
+    labelIngredients->setAlignment(Qt::AlignCenter);
+    labelIngredients->setStyleSheet("font-weight: bold; font-size: 12px;");
+    middleColumn->addWidget(labelIngredients);
+    middleColumn->addWidget(ingredientList);
+
+    stepText->setReadOnly(true);
+    QVBoxLayout *rightColumn = new QVBoxLayout();
+    QLabel *labelSteps = new QLabel("Étapes");
+    labelSteps->setAlignment(Qt::AlignCenter);
+    labelSteps->setStyleSheet("font-weight: bold; font-size: 12px;");
+    rightColumn->addWidget(labelSteps);
+    rightColumn->addWidget(stepText);
+
+    // Layout principal horizontal
+    QHBoxLayout *layout = new QHBoxLayout(central);
+    layout->addLayout(leftColumn);
+    layout->addLayout(middleColumn);
+    layout->addLayout(rightColumn);
+
 
     setCentralWidget(central);
-    resize(800, 400);
+    resize(1200, 600);
     setWindowTitle("Livre de Recettes");
 
     // Connecter la sélection
