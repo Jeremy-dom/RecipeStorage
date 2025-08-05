@@ -7,6 +7,8 @@ The app will :
         - Interface : 3 colums for the recipes, the ingredients and the step
     - save and load it in a file
         - Interface : A button to save or load a file
+    - create new recipes from the interface
+        - Interface : new window to write the new recipes
     - take random recipes and write a grocery list
         - Interface : A button that open an interface that ask how many recipes and an interface that show the grocery list
     - calculate all the macro by webscrapping the macro of each ingredient
