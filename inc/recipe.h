@@ -22,12 +22,21 @@ class Recipe{
         //Getter
         std::string getName() const;
         Ingredient getIngredient(int index) const;
+        const std::vector<Ingredient>& getIngredients() const;
         int getQuantity(int index) const;
+        const std::vector<int>& getQuantities() const;
         std::string getStep(int index) const;
+        const std::vector<std::string>& getSteps() const;
         std::string getAllStep() const;
 
         //Setter
         void setName(const std::string& name);
+
+        // Ajouter un ingredient
+        void addIngredient(Ingredient ingredient);
+
+        // Ajouter sa quantité
+        void addQuantity(int quantity);
 
         // Ajouter un ingredient et sa quantité
         void addIngredient(int quantity, Ingredient ingredient);

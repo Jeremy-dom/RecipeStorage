@@ -29,14 +29,29 @@ Ingredient Recipe::getIngredient(int index) const
     return ingredients[index];
 }
 
+const std::vector<Ingredient>& Recipe::getIngredients() const
+{
+    return ingredients;
+}
+
 int Recipe::getQuantity(int index) const
 {
     return quantities[index];
 }
 
+const std::vector<int>& Recipe::getQuantities() const
+{
+    return quantities;
+}
+
 std::string Recipe::getStep(int index) const
 {
     return steps[index];
+}
+
+const std::vector<std::string>& Recipe::getSteps() const
+{
+    return steps;
 }
 
 std::string Recipe::getAllStep() const
@@ -53,6 +68,18 @@ std::string Recipe::getAllStep() const
 // Setters
 void Recipe::setName(const std::string& name) {
     this->name = name;
+}
+
+// Ajouter un ingredient
+void Recipe::addIngredient(Ingredient ingredient)
+{
+    ingredients.push_back(ingredient);
+}
+
+// Ajouter sa quantité
+void Recipe::addQuantity(int quantity)
+{
+    quantities.push_back(quantity);
 }
 
 // Ajouter un ingredient et sa quantité

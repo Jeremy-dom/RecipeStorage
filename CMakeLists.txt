@@ -20,6 +20,7 @@ set(PROJECT_SOURCES
     inc/mainwindow.h    #Obligatoire a cause du Q_OBJECT
     src/ingredient.cpp
     src/recipe.cpp
+    src/sauvegarde.cpp
 )
 
 

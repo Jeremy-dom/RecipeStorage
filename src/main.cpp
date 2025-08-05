@@ -1,8 +1,10 @@
 #include "mainwindow.h"
 #include "recipe.h"
+#include "sauvegarde.h"
 
 #include <iostream>
 #include <QApplication>
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
@@ -54,9 +56,18 @@ int main(int argc, char *argv[])
     recipeMap[QString::fromStdString(pateAlfredo.getName())] = {pateAlfredo};
     recipeMap[QString::fromStdString(boeufTacoRiz.getName())] = {boeufTacoRiz};
 
+    QString filePath = "recettes.json";
+    if (Sauvegarde::saveRecipesToFile(recipeMap, filePath)) {
+        qDebug() << "Sauvegarde réussie dans" << filePath;
+    } else {
+        qDebug() << "Erreur lors de la sauvegarde.";
+    }
+
+    QMap<QString, Recipe> recipes2 = Sauvegarde::loadRecipesFromFile("recettes.json");
+
     QApplication a(argc, argv);
     MainWindow w;
-    w.populateRecipes(recipeMap);
+    w.populateRecipes(recipes2);
     w.show();
     return a.exec();
 }
