@@ -4,8 +4,11 @@ To learn to use QT in a project.
 
 The app will :
     - store recipe with all the ingredients and all the step
+        - Interface : 3 colums for the recipes, the ingredients and the step
     - save and load it in a file
+        - Interface : A button to save or load a file
     - take random recipes and write a grocery list
+        - Interface : A button that open an interface that ask how many recipes and an interface that show the grocery list
     - calculate all the macro by webscrapping the macro of each ingredient
 
 It will be seperated in 3 directories :

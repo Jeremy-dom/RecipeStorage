@@ -46,35 +46,25 @@ MainWindow::MainWindow(QWidget *parent)
     // Connecter la sélection
     connect(recipeList, &QListWidget::currentTextChanged, this, &MainWindow::onRecipeSelected);
 
-    std::vector<Recipe> empty;
+    QMap<QString, Recipe> empty;
 
     populateRecipes(empty);
 }
 
-void MainWindow::populateRecipes(std::vector<Recipe> recipes) {
-
-    for(size_t i = 0; i < recipes.size(); i++)
+void MainWindow::populateRecipes(QMap<QString, Recipe> recipesMap) 
+{
+    for(auto it = recipesMap.begin(); it != recipesMap.end(); ++it)
     {
-        QString name = QString::fromStdString(recipes[i].getName());
-        for(size_t j = 0; j < recipes[i].sizeIngredient(); j++)
+        QString name = it.key();
+        for(size_t j = 0; j < it.value().sizeIngredient(); j++)
         {
-            std::string ingredientQuantity = std::to_string(recipes[i].getQuantity(j)) + recipes[i].getIngredient(j).getUnit() + 
-                " " + recipes[i].getIngredient(j).getName();
+            std::string ingredientQuantity = std::to_string(it.value().getQuantity(j)) + it.value().getIngredient(j).getUnit() + 
+                " " + it.value().getIngredient(j).getName();
             ingredientsMap[name] << QString::fromStdString(ingredientQuantity);
         }
-        stepsMap[name] = QString::fromStdString(recipes[i].getAllStep());
+        stepsMap[name] = QString::fromStdString(it.value().getAllStep());
     }
     recipeList->addItems(ingredientsMap.keys());
-
-    // QString name1 = "Spaghetti Bolognaise";
-    // ingredientsMap[name1] = QStringList() << "Pâtes" << "Viande hachée" << "Tomates" << "Oignons" << "Ail";
-    // stepsMap[name1] = "1. Faire revenir oignons et ail.\n2. Ajouter la viande.\n3. Ajouter les tomates.\n4. Laisser mijoter.\n5. Cuire les pâtes.\n6. Mélanger et servir.";
-
-    // QString name2 = "Crêpes";
-    // ingredientsMap[name2] = QStringList() << "Farine" << "Lait" << "Œufs" << "Sucre" << "Beurre";
-    // stepsMap[name2] = "1. Mélanger farine et sucre.\n2. Ajouter œufs et lait.\n3. Bien fouetter.\n4. Cuire dans une poêle beurrée.";
-
-    // recipeList->addItems(ingredientsMap.keys());
 }
 
 void MainWindow::onRecipeSelected() {

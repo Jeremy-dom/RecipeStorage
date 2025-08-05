@@ -16,7 +16,7 @@ class MainWindow : public QMainWindow {
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    void populateRecipes(std::vector<Recipe> recipes);
+    void populateRecipes(QMap<QString, Recipe> recipesMap);
 
 private slots:
     void onRecipeSelected();

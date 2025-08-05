@@ -15,13 +15,16 @@ class Recipe{
 
     public:
 
+        Recipe();
         Recipe(const std::string& name);
+        Recipe(const Recipe&);
 
         //Getter
         std::string getName() const;
-        Ingredient getIngredient(int index);
-        int getQuantity(int index);
-        std::string getAllStep();
+        Ingredient getIngredient(int index) const;
+        int getQuantity(int index) const;
+        std::string getStep(int index) const;
+        std::string getAllStep() const;
 
         //Setter
         void setName(const std::string& name);

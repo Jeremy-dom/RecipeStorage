@@ -2,24 +2,44 @@
 #include <iostream>
 
 // Constructeur
+Recipe::Recipe() {}
+
 Recipe::Recipe(const std::string& name) : name(name) {}
+
+Recipe::Recipe(const Recipe& recipe) : name(recipe.getName())
+{
+    for(size_t i = 0; i < recipe.sizeIngredient(); i++)
+    {
+        this->quantities.push_back(recipe.getQuantity(i));
+        this->ingredients.push_back(recipe.getIngredient(i));
+    }
+    for(size_t i = 0; i < recipe.sizeStep(); i++)
+    {
+        this->steps.push_back(recipe.getStep(i));
+    }
+}
 
 // Getters
 std::string Recipe::getName() const {
     return name;
 }
 
-Ingredient Recipe::getIngredient(int index)
+Ingredient Recipe::getIngredient(int index) const
 {
     return ingredients[index];
 }
 
-int Recipe::getQuantity(int index)
+int Recipe::getQuantity(int index) const
 {
     return quantities[index];
 }
 
-std::string Recipe::getAllStep()
+std::string Recipe::getStep(int index) const
+{
+    return steps[index];
+}
+
+std::string Recipe::getAllStep() const
 {
     std::string allStep;
     for(size_t i = 0; i < steps.size(); i++)

@@ -6,7 +6,7 @@
 
 int main(int argc, char *argv[])
 {
-    std::vector<Recipe> recipeVector;
+    QMap<QString, Recipe> recipeMap;
     Recipe pateAlfredo("Pâtes Alfredo");
     pateAlfredo.addIngredient(720, {"Blanc de poulet", "g"});
     pateAlfredo.addIngredient(200, {"Pâtes", "g"});
@@ -51,12 +51,12 @@ int main(int argc, char *argv[])
     boeufTacoRiz.addStep("Pensez à remuez toutes les 2-3 minutes");
     boeufTacoRiz.addStep("Mettre le fromage par dessus et couvrir pour 5min");
 
-    recipeVector.push_back(pateAlfredo);
-    recipeVector.push_back(boeufTacoRiz);
+    recipeMap[QString::fromStdString(pateAlfredo.getName())] = {pateAlfredo};
+    recipeMap[QString::fromStdString(boeufTacoRiz.getName())] = {boeufTacoRiz};
 
     QApplication a(argc, argv);
     MainWindow w;
-    w.populateRecipes(recipeVector);
+    w.populateRecipes(recipeMap);
     w.show();
     return a.exec();
 }
