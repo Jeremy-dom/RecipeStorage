@@ -2,14 +2,15 @@
 #define MAINWINDOW_H
 
 #include "recipe.h"
+#include "sauvegarde.h"
 
 #include <QMainWindow>
 #include <QListWidget>
 #include <QTextEdit>
-#include <QHBoxLayout>
 #include <QMap>
 #include <QStringList>
-#include <QLabel>
+#include <QDebug>
+#include <QMessageBox>
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -20,6 +21,8 @@ public:
 
 private slots:
     void onRecipeSelected();
+    void onLoadRecipes();
+    void onSaveRecipes();
 
 private:
    
@@ -27,9 +30,11 @@ private:
     QListWidget *ingredientList;
     QTextEdit *stepText;
 
+    QMap<QString, Recipe> recipeMap;
     QMap<QString, QStringList> ingredientsMap;
     QMap<QString, QString> stepsMap;
 
+    void refreshRecipeList();
 };
 
 #endif // MAINWINDOW_H

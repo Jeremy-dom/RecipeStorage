@@ -1,5 +1,11 @@
 #include "mainwindow.h"
 
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QMenuBar>
+#include <QFileDialog>
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
       recipeList(new QListWidget(this)),
@@ -46,9 +52,23 @@ MainWindow::MainWindow(QWidget *parent)
     // Connecter la sélection
     connect(recipeList, &QListWidget::currentTextChanged, this, &MainWindow::onRecipeSelected);
 
-    QMap<QString, Recipe> empty;
+    // Menu
+    QMenu *fileMenu = menuBar()->addMenu("Fichier");
 
-    populateRecipes(empty);
+    QAction *loadAction = new QAction("Ouvrir", this);
+    QAction *saveAction = new QAction("Enregistrer sous", this);
+
+    fileMenu->addAction(loadAction);
+    fileMenu->addAction(saveAction);
+
+    connect(loadAction, &QAction::triggered, this, &MainWindow::onLoadRecipes);
+    connect(saveAction, &QAction::triggered, this, &MainWindow::onSaveRecipes);
+
+    refreshRecipeList();
+
+    // Sélectionner la première recette par défaut
+    if (!recipeMap.isEmpty())
+        recipeList->setCurrentRow(0);
 }
 
 void MainWindow::populateRecipes(QMap<QString, Recipe> recipesMap) 
@@ -69,12 +89,37 @@ void MainWindow::populateRecipes(QMap<QString, Recipe> recipesMap)
 
 void MainWindow::onRecipeSelected() {
     QString selected = recipeList->currentItem()->text();
-
     // Affichage des ingrédients
     ingredientList->clear();
     ingredientList->addItems(ingredientsMap[selected]);
-
     // Affichage des étapes
     stepText->clear();
     stepText->setText(stepsMap[selected]);
+}
+
+void MainWindow::onLoadRecipes() {
+    QString fileName = QFileDialog::getOpenFileName(this, "Charger recettes", "", "JSON (*.json)");
+    if (fileName.isEmpty()) return;
+
+    recipeMap = Sauvegarde::loadRecipesFromFile(fileName); 
+    populateRecipes(recipeMap);
+    refreshRecipeList();
+}
+
+void MainWindow::onSaveRecipes() {
+    QString fileName = QFileDialog::getSaveFileName(this, "Sauvegarder recettes", "", "JSON (*.json)");
+    if (fileName.isEmpty()) return;
+
+    bool success = Sauvegarde::saveRecipesToFile(recipeMap, fileName);
+    if (!success) {
+        QMessageBox::warning(this, "Erreur", "Échec de la sauvegarde du fichier.");
+    }
+}
+
+void MainWindow::refreshRecipeList() {
+    recipeList->clear();
+
+    for (const QString& name : recipeMap.keys()) {
+        recipeList->addItem(name);
+    }
 }
